@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Profile | Krista</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header class="hero">
+  <h1>Profile</h1>
+  <p>Edit your profile and see your activity ✨</p>
+
+  <nav class="dashboard-nav">
+    <a href="feed.html" class="nav-link">Feed</a>
+    <a href="profile.html" class="nav-link active">Profile</a>
+    <a href="settings.html" class="nav-link">Settings</a>
+    <a href="krista.html" class="nav-link logout">Log Out</a>
+  </nav>
+</header>
+
+<section class="features">
+  <div class="card">
+    <h3>Your Profile</h3>
+
+    <label>Profile Picture:</label><br>
+    <input type="file" id="profilePicInput" accept="image/*"><br><br>
+    <img id="profilePic" src="" alt="Profile Picture" style="width:100px;height:100px;border-radius:50%;display:block;margin-bottom:10px;"><br>
+
+    <label>Username:</label><br>
+    <input type="text" id="username"><br><br>
+
+    <label>Email:</label><br>
+    <input type="email" id="email"><br><br>
+
+    <p>Total Posts: <span id="postCount">0</span></p>
+
+    <button class="btn primary" id="saveProfile">Save Profile</button>
+  </div>
+</section>
+
+<footer>
+  <p>Krista • Powered by Bukason Tech</p>
+</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const usernameInput = document.getElementById("username");
+  const emailInput = document.getElementById("email");
+  const saveBtn = document.getElementById("saveProfile");
+  const profilePic = document.getElementById("profilePic");
+  const profilePicInput = document.getElementById("profilePicInput");
+  const postCount = document.getElementById("postCount");
+
+  // Load profile data
+  let profile = JSON.parse(localStorage.getItem("kristaProfile") || '{"username":"DemoUser","email":"demo@example.com","pic":""}');
+  usernameInput.value = profile.username;
+  emailInput.value = profile.email;
+  profilePic.src = profile.pic || "assets/default-profile.png";
+
+  // Load posts
+  let posts = JSON.parse(localStorage.getItem("kristaPosts") || "[]");
+  postCount.textContent = posts.length;
+
+  // Save profile
+  saveBtn.addEventListener("click", () => {
+    profile.username = usernameInput.value;
+    profile.email = emailInput.value;
+    localStorage.setItem("kristaProfile", JSON.stringify(profile));
+    alert("Profile saved! ✅");
+  });
+
+  // Profile picture upload
+  profilePicInput.addEventListener("change", function(){
+    const file = this.files[0];
+    if(file){
+      const reader = new FileReader();
+      reader.onload = function(e){
+        profilePic.src = e.target.result;
+        profile.pic = e.target.result;
+        localStorage.setItem("kristaProfile", JSON.stringify(profile));
+      }
+      reader.readAsDataURL(file);
+    }
+  });
+});
+</script>
+
+</body>
+</html>

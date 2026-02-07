@@ -1,0 +1,111 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #0f172a;
+  color: #e5e7eb;
+}
+
+.hero {
+  padding: 80px 20px;
+  text-align: center;
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  font-size: 1.2rem;
+}
+
+.buttons {
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 12px 20px;
+  margin: 5px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: white;
+  border: 1px solid white;
+}
+
+.btn.primary {
+  background: white;
+  color: #1e293b;
+}
+
+.btn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.products, .features {
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.card {
+  background: #1e293b;
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 400px;
+  border-radius: 12px;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #020617;
+}
+
+input {
+  padding: 12px;
+  width: 90%;
+  max-width: 300px;
+  border-radius: 6px;
+  border: none;
+}
+
+textarea {
+  padding: 12px;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 8px;
+  border: none;
+  resize: none;
+}
+
+/* Dashboard Nav */
+.dashboard-nav {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.dashboard-nav .nav-link {
+  text-decoration: none;
+  color: white;
+  padding: 7px 14px;
+  border-radius: 5px;
+  border: 1px solid white;
+}
+
+.dashboard-nav .nav-link.active {
+  background: white;
+  color: #1e293b;
+}
+
+.dashboard-nav .nav-link.logout {
+  border-color: #f87171;
+  color: #f87171;
+}
+
+.dashboard-nav .nav-link.logout:hover {
+  background: #f87171;
+  color: white;
+}

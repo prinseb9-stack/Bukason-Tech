@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Settings | Krista</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header class="hero">
+  <h1>Settings</h1>
+  <p>Adjust your preferences and make Krista yours ✨</p>
+
+  <nav class="dashboard-nav">
+    <a href="feed.html" class="nav-link">Feed</a>
+    <a href="profile.html" class="nav-link">Profile</a>
+    <a href="settings.html" class="nav-link active">Settings</a>
+    <a href="krista.html" class="nav-link logout">Log Out</a>
+  </nav>
+</header>
+
+<section class="features">
+  <div class="card">
+    <h3>Settings</h3>
+
+    <label>
+      <input type="checkbox" id="darkMode"> Enable Dark Mode
+    </label><br><br>
+
+    <label>
+      <input type="checkbox" id="seatNotifications"> Seat Notifications
+    </label><br><br>
+
+    <button class="btn primary" id="saveSettings">Save Settings</button>
+  </div>
+</section>
+
+<footer>
+  <p>Krista • Powered by Bukason Tech</p>
+</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const darkModeCheckbox = document.getElementById("darkMode");
+  const seatCheckbox = document.getElementById("seatNotifications");
+  const saveBtn = document.getElementById("saveSettings");
+
+  // Load settings or create defaults
+  let settings = JSON.parse(localStorage.getItem("kristaSettings") || '{"darkMode":false,"seatNotifications":true}');
+  darkModeCheckbox.checked = settings.darkMode;
+  seatCheckbox.checked = settings.seatNotifications;
+
+  // Apply dark mode instantly
+  document.body.style.background = settings.darkMode ? "#0f172a" : "#ffffff";
+  document.body.style.color = settings.darkMode ? "#e5e7eb" : "#1e293b";
+
+  saveBtn.addEventListener("click", () => {
+    settings.darkMode = darkModeCheckbox.checked;
+    settings.seatNotifications = seatCheckbox.checked;
+    localStorage.setItem("kristaSettings", JSON.stringify(settings));
+
+    // Apply dark mode immediately
+    document.body.style.background = settings.darkMode ? "#0f172a" : "#ffffff";
+    document.body.style.color = settings.darkMode ? "#e5e7eb" : "#1e293b";
+
+    alert("Settings saved! ✅");
+  });
+});
+</script>
+
+</body>
+</html>

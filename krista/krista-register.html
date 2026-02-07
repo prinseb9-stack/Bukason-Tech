@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sign Up | Krista</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Hero / Header -->
+  <header class="hero">
+    <h1>Join Krista 🌱</h1>
+    <p>Create your account and start connecting today</p>
+  </header>
+
+  <!-- Registration Form -->
+  <section class="features">
+    <form class="card" id="registerForm">
+      <input type="text" id="username" placeholder="Username" required /><br /><br />
+      <input type="email" id="email" placeholder="Email" required /><br /><br />
+      <input type="password" id="password" placeholder="Password" required /><br /><br />
+      <button class="btn primary" type="submit">Create Account</button>
+    </form>
+
+    <p>
+      Already have an account?
+      <a href="krista-login.html">Log in</a>
+    </p>
+  </section>
+
+  <footer>
+    <a href="krista.html">← Back to Krista Home</a>
+  </footer>
+
+  <!-- JS for front-end navigation -->
+  <script>
+    const registerForm = document.getElementById("registerForm");
+
+    registerForm.addEventListener("submit", function(e) {
+      e.preventDefault(); // prevent actual form submission
+      // Navigate to new feed page
+      window.location.href = "feed.html";
+    });
+  </script>
+
+</body>
+</html>
