@@ -2,175 +2,39 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Feed | Krista</title>
-  <link rel="stylesheet" href="css/style.css">
-  <style>
-    .post-card, .comment-card { 
-      background: #1e293b; padding:10px; border-radius:8px; margin-bottom:10px; 
-    }
-    .like-btn, .delete-btn, .comment-btn { margin-right:5px; cursor:pointer; }
-    .comment-section { margin-left:20px; margin-top:10px; }
-    .post-image, .comment-image { max-width:100%; margin-top:5px; border-radius:5px; }
-    textarea { width: 100%; }
-  </style>
+  <title>krista Feed | Bukason Tech</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/feed.css">
 </head>
 <body>
 
-<header class="hero">
-  <h1>Feed</h1>
-  <p>Connect and share ✨</p>
-  <nav class="dashboard-nav">
-    <a href="feed.html" class="nav-link active">Feed</a>
-    <a href="profile.html" class="nav-link">Profile</a>
-    <a href="settings.html" class="nav-link">Settings</a>
-    <a href="krista.html" class="nav-link logout">Log Out</a>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="logo">Krista</div>
+    <ul class="nav-links">
+      <li class="active"><a href="#">Feed</a></li>
+      <li><a href="profile.html">Profile</a></li>
+      <li><a href="settings.html">Settings</a></li>
+    </ul>
   </nav>
-</header>
 
-<div id="seat-notifications" class="notifications"></div>
+  <!-- POST FORM -->
+  <section class="feed">
+    <div class="post-form">
+      <textarea id="postText" placeholder="Share something..."></textarea>
+      <input type="file" id="postMedia" accept="image/*,video/*">
+      <button class="btn primary" id="postBtn">Post</button>
+    </div>
 
-<section class="features">
-  <div class="card">
-    <h3>Create a Post</h3>
-    <textarea id="postText" placeholder="What's on your mind?" rows="4" maxlength="280"></textarea><br><br>
-    <input type="file" id="postImageInput" accept="image/*,video/*"><br><br>
-    <button class="btn primary" id="postButton">Post</button>
-  </div>
+    <!-- Dynamic posts container -->
+    <div id="postsContainer"></div>
+  </section>
 
-  <div class="card">
-    <h3>Community Feed</h3>
-    <div id="feed-posts"></div>
-  </div>
-</section>
+  <footer>
+    <p>Powered by Bukason Tech © 2026</p>
+    <a href="../index.html">← Back to Bukason Tech</a>
+  </footer>
 
-<footer>
-  <p>Krista • Powered by Bukason Tech</p>
-</footer>
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const postButton = document.getElementById("postButton");
-  const postText = document.getElementById("postText");
-  const postImageInput = document.getElementById("postImageInput");
-  const feed = document.getElementById("feed-posts");
-  const seatNotifications = document.getElementById("seat-notifications");
-
-  // Load settings
-  const settings = JSON.parse(localStorage.getItem("kristaSettings") || '{"darkMode":false,"seatNotifications":true}');
-  const seatEnabled = settings.seatNotifications;
-  if(settings.darkMode) document.body.style.background = "#0f172a";
-
-  // Load posts
-  let posts = JSON.parse(localStorage.getItem("kristaPosts") || "[]");
-
-  function addSeatNotification(message){
-    if(!seatEnabled) return;
-    const notif = document.createElement("p");
-    notif.textContent = "🔔 " + message;
-    notif.style.background="#2563eb"; notif.style.color="#fff";
-    notif.style.padding="8px"; notif.style.borderRadius="6px"; notif.style.marginBottom="5px";
-    seatNotifications.prepend(notif);
-    setTimeout(()=>notif.remove(),4000);
-  }
-
-  function renderPosts(){
-    feed.innerHTML = posts.length===0?'<p>🗣️ No posts yet. Be the first.</p>':'';
-    posts.forEach((p, index)=>{
-      const postCard = document.createElement("div"); postCard.className="post-card";
-
-      // Post content
-      if(p.text) { const textEl=document.createElement("p"); textEl.textContent="🗣️ "+p.text; postCard.appendChild(textEl);}
-      if(p.image){ const imgEl=document.createElement("img"); imgEl.src=p.image; imgEl.className="post-image"; postCard.appendChild(imgEl); }
-
-      const timeEl=document.createElement("small"); timeEl.textContent="⏰ "+p.time; postCard.appendChild(timeEl);
-
-      // Like button
-      const likeBtn=document.createElement("button");
-      likeBtn.textContent="👍 "+(p.likes||0);
-      likeBtn.className="like-btn";
-      likeBtn.addEventListener("click", ()=>{
-        p.likes = p.likes||0;
-        if(!p.likedByUser){ p.likes++; p.likedByUser=true; } 
-        else { p.likes--; p.likedByUser=false; }
-        localStorage.setItem("kristaPosts",JSON.stringify(posts));
-        renderPosts();
-      });
-      postCard.appendChild(likeBtn);
-
-      // Delete button
-      const deleteBtn=document.createElement("button");
-      deleteBtn.textContent="Delete"; deleteBtn.className="delete-btn";
-      deleteBtn.addEventListener("click", ()=>{
-        posts.splice(index,1);
-        localStorage.setItem("kristaPosts",JSON.stringify(posts));
-        renderPosts();
-        addSeatNotification("A post was deleted!");
-      });
-      postCard.appendChild(deleteBtn);
-
-      // Comment section
-      const commentSection=document.createElement("div"); commentSection.className="comment-section";
-      const commentList=document.createElement("div");
-      p.comments.forEach((c)=>{
-        const commentCard=document.createElement("div"); commentCard.className="comment-card";
-        if(c.text){ const cText=document.createElement("p"); cText.textContent=c.text; commentCard.appendChild(cText);}
-        if(c.image){ const cImg=document.createElement("img"); cImg.src=c.image; cImg.className="comment-image"; commentCard.appendChild(cImg);}
-        const cTime=document.createElement("small"); cTime.textContent=c.time; commentCard.appendChild(cTime);
-        commentList.appendChild(commentCard);
-      });
-      commentSection.appendChild(commentList);
-
-      // Add comment input
-      const commentInput=document.createElement("textarea"); commentInput.placeholder="Write a comment..."; commentInput.rows=2;
-      const commentImageInput=document.createElement("input"); commentImageInput.type="file"; commentImageInput.accept="image/*,video/*";
-      const commentBtn=document.createElement("button"); commentBtn.textContent="Comment"; commentBtn.className="comment-btn";
-
-      commentBtn.addEventListener("click", ()=>{
-        const text=commentInput.value.trim();
-        const file=commentImageInput.files[0];
-        if(!text && !file) return;
-
-        const comment={text:"", image:"", time:new Date().toLocaleString()};
-        if(text) comment.text=text;
-        if(file){
-          const reader=new FileReader();
-          reader.onload=function(e){ comment.image=e.target.result; p.comments.push(comment); localStorage.setItem("kristaPosts",JSON.stringify(posts)); renderPosts(); if(seatEnabled) addSeatNotification("New comment added!"); }
-          reader.readAsDataURL(file);
-        } else { p.comments.push(comment); localStorage.setItem("kristaPosts",JSON.stringify(posts)); renderPosts(); if(seatEnabled) addSeatNotification("New comment added!"); }
-      });
-
-      commentSection.appendChild(commentInput); commentSection.appendChild(commentImageInput); commentSection.appendChild(commentBtn);
-
-      postCard.appendChild(commentSection);
-      feed.prepend(postCard);
-    });
-  }
-
-  renderPosts();
-
-  // New post creation
-  postButton.addEventListener("click", ()=>{
-    const text=postText.value.trim();
-    const file=postImageInput.files[0];
-    if(!text && !file) return;
-
-    const newPost={text:text||"", image:"", video:"", time:new Date().toLocaleString(), likes:0, likedByUser:false, comments:[]};
-
-    if(file){
-      const reader=new FileReader();
-      reader.onload=function(e){ newPost.image=e.target.result; posts.unshift(newPost); localStorage.setItem("kristaPosts",JSON.stringify(posts)); renderPosts(); postText.value=""; postImageInput.value=""; addSeatNotification("New post added!"); }
-      reader.readAsDataURL(file);
-    } else { posts.unshift(newPost); localStorage.setItem("kristaPosts",JSON.stringify(posts)); renderPosts(); postText.value=""; addSeatNotification("New post added!"); }
-  });
-
-  // Random seat notifications
-  setInterval(()=>{
-    if(!seatEnabled) return;
-    const messages=["Tip: Connect with someone new today! 🌱","Stay creative! 💡","Check your profile! ✏️"];
-    addSeatNotification(messages[Math.floor(Math.random()*messages.length)]);
-  },25000);
-});
-</script>
-
+  <script src="Js/feed.js"></script>
 </body>
 </html>

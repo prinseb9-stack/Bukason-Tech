@@ -1,0 +1,119 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* BODY */
+body {
+  background: #f0f2f5;
+  color: #111;
+}
+
+/* HEADER */
+.krista-header {
+  background: linear-gradient(135deg, #6a5cff, #00c6ff);
+  color: #fff;
+  padding: 16px;
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: bold;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* FEED CONTAINER */
+.feed {
+  max-width: 600px;
+  margin: auto;
+  padding: 16px;
+}
+
+/* POST CARD */
+.post-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  animation: fadeIn 0.4s ease;
+}
+
+/* POST HEADER */
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.post-user {
+  font-weight: 600;
+}
+
+.post-time {
+  font-size: 0.8rem;
+  color: #777;
+}
+
+/* POST CONTENT */
+.post-text {
+  margin: 10px 0;
+  line-height: 1.5;
+}
+
+/* POST IMAGE */
+.post-image {
+  width: 100%;
+  border-radius: 12px;
+  margin-top: 8px;
+}
+
+/* ACTIONS */
+.post-actions {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+
+.post-actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  color: #555;
+}
+
+.post-actions button.liked {
+  color: #ff3366;
+}
+
+/* COMMENTS */
+.comments {
+  margin-top: 10px;
+}
+
+.comment {
+  background: #f4f4f4;
+  padding: 6px 10px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  margin-top: 6px;
+}
+
+/* COMMENT INPUT */
+.comment-input {
+  margin-top: 8px;
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+/* ANIMATION */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}

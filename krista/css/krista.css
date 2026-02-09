@@ -1,0 +1,67 @@
+* {
+  box-sizing: border-box;
+  font-family: system-ui, Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(135deg, #6a5cff, #00c6ff);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Splash */
+.splash {
+  text-align: center;
+  color: white;
+  animation: fadeOut 1s ease forwards;
+  animation-delay: 2s;
+}
+
+.logo {
+  font-size: 3rem;
+  margin: 0;
+}
+
+/* Login */
+.login {
+  background: white;
+  padding: 30px;
+  border-radius: 14px;
+  width: 90%;
+  max-width: 320px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.login input {
+  width: 100%;
+  padding: 12px;
+  margin: 12px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.login button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: #6a5cff;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
